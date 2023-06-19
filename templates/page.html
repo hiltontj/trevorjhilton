@@ -3,12 +3,16 @@
 {% block description %}{{ page.description }}{% endblock description %}
 
 {% block content %}
-<div class="post">
-  <div class="post-title">
+<div class="page">
+  <div class="page-title">
     <h2>{{ page.title | safe }}</h2>
   </div>
 
-  <div class="post-body">
+  {% if page.date %}
+    <div class="page-date">Posted: {{ page.date | date(format="%d %B %Y") }}</div>
+  {% endif %}
+
+  <div class="page-body">
     {{ page.content | safe }}
   </div>
 </div>

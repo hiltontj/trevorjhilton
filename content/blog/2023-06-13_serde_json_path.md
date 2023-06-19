@@ -1,7 +1,13 @@
 +++
-title = "serde_json_path"
-description = "Building JSONPath library in Rust"
-tags = ["rust", "json"]
+title = "Introducing serde_json_path"
+description = "A JSONPath library for Rust"
+
+[extra]
+# tags = ["rust", "json"]
 +++
 
-I built `serde_json_path`.
+I built `serde_json_path`. It is a great library.
+
+<!-- more -->
+
+You should use it!
