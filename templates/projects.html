@@ -1,0 +1,22 @@
+{% extends "index.html" %}
+
+{% block description %}Trevor Hilton Projects{% endblock description %}
+
+{% block content %}
+<div class="section-title">
+  <h2>Projects</h2>
+</div>
+
+<div class="project-list">
+  {% for project in section.pages %}
+    <div class="project-item">
+      <div class="project-title">
+        <a href='{{ project.extra.link }}' target="_blank" >{{ project.title }}</a>
+      </div>
+      <div class="project-content">
+        {{ project.content | safe }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}
