@@ -26,3 +26,21 @@
     margin: 0;
   }
 }
+
+#content {
+  margin: 8rem auto;
+}
+
+.intro {
+  border: 1px solid $grey;
+  padding: 0.5rem 2rem;
+  max-width: $container-width;
+  font-size: 1.5rem;
+  margin: auto auto;
+
+  .intro-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

@@ -3,22 +3,16 @@
 {% block description %}Trevor Hilton Blog{% endblock description %}
 
 {% block content %}
-<div class="blog-title">
-  <h2>Blog Posts</h2>
-</div>
-
 <div class="blog-list">
+  <div class="blog-title">
+    <h2>Blog Posts</h2>
+  </div>
   {% for post in section.pages %}
     <div class="blog-title">
       <a href="{{ post.permalink }}">{{ post.title }}</a>
     </div>
     <div class="blog-meta">
       <div class="blog-date">{{ post.date | date(format="%d %B %Y") }}</div>
-      {% if post.extra.tags %}
-        {% for tag in post.extra.tags %}
-          <div class="blog-tag">{{ tag }}</div>
-        {% endfor %}
-      {% endif %}
     </div>
     <div class="blog-summary">{{ post.summary | safe }}</div>
   {% endfor %}

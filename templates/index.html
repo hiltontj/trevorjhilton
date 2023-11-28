@@ -9,20 +9,41 @@
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <link rel="stylesheet" href="{{ get_url(path="site.css", cachebust=true) }}" />
     <link rel="shortcut icon" type="image/png" href="{{ get_url(path="favicon.ico") }}"/>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <!-- <link href="{{ get_url(path="rss.xml") }}" rel="feed" type="application/rss+xml" title="{{ config.title }}" /> -->
   </head>
 
   <header id="header">
     <h1 class="logo"><a href="/">Trevor Hilton</a></h1>
     <ul>
-      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/about/">About</a></li>
       <li><a href="/projects/">Projects</a></li>
+      <li><a href="/blog/">Blog</a></li>
     </ul>
   </header>
 
   <div id="content">
     {% block content %}
-      <div>Hi, I'm Trevor, a software engineer from Toronto, Canada.</div>
+      <div class="intro">
+        <section>
+          <p>
+            Hi, I am Trevor, a software engineer from Toronto, Canada. 
+          </p>
+          <p>
+            Read more <a href="/about/">about me</a>, check out my <a href="/projects/">projects</a>, or <a href="/blog/">read my posts</a>
+          </p>
+        </section>
+        <div class="intro-icons">
+          <a href="https://github.com/hiltontj" target="_blank" >
+            <box-icon type='logo' name='github' size='36px'></box-icon>
+          </a>
+          <a href="https://www.linkedin.com/in/trevorhilton/" target="_blank" >
+            <box-icon type='logo' name='linkedin-square' size='36px'></box-icon>
+          </a>
+        </div>
+      </div>
     {% endblock content %}
   </div>
+
+  <!-- <pre>{{ __tera_context }}</pre> -->
 </html>

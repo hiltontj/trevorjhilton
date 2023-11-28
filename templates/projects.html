@@ -3,18 +3,41 @@
 {% block description %}Trevor Hilton Projects{% endblock description %}
 
 {% block content %}
-<div class="section-title">
-  <h2>Projects</h2>
-</div>
 
 <div class="project-list">
+  <div class="section-title">
+    <h2>Projects</h2>
+  </div>
+  
   {% for project in section.pages %}
     <div class="project-item">
       <div class="project-title">
-        <a href='{{ project.extra.link }}' target="_blank" >{{ project.title }}</a>
+        <h3><a href="{{ project.permalink }}">{{ project.title }}</a></h3>
       </div>
-      <div class="project-content">
-        {{ project.content | safe }}
+      <div class="project-meta">
+        {% if project.extra.website %}
+          <a href="{{ project.extra.website }}" target="_blank" >
+            <box-icon name='globe' ></box-icon>
+          </a>
+        {% endif %}
+        {% if project.extra.github %}
+          <a href="{{ project.extra.github }}" target="_blank" >
+            <box-icon type='logo' name='github'></box-icon>
+          </a>
+        {% endif %}
+        {% if project.extra.docs %}
+          <a href="{{ project.extra.docs }}" target="_blank" >
+            <box-icon name='book-open'></box-icon>
+          </a>
+        {% endif %}
+        {% if project.extra.package %}
+          <a href="{{ project.extra.package }}" target="_blank" >
+            <box-icon name='package'></box-icon>
+          </a>
+        {% endif %}
+      </div>
+      <div class="project-summary">
+        {{ project.summary | safe }}
       </div>
     </div>
   {% endfor %}

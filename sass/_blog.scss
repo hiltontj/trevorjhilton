@@ -5,6 +5,9 @@
 }
 
 .blog-list {
+  max-width: $container-width;
+  margin: 0 auto;
+
   .blog-title {
     a {
       text-decoration: none;
@@ -31,4 +34,9 @@
       padding-right: 0.5rem;
     }
   }
+}
+
+.page {
+  max-width: $container-width;
+  margin: 0 auto;
 }

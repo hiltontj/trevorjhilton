@@ -1,0 +1,31 @@
+.project-list {
+  max-width: $container-width;
+  margin: 0 auto;
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+      "title meta"
+      "summary summary";
+  }
+  
+  .project-title {
+    grid-area: title;
+  }
+  
+  .project-meta {
+    grid-area: meta;
+    display: flex;
+    justify-content: end;
+    padding-right: 1.5rem;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    gap: 0.5rem;
+  }
+  
+  .project-summary {
+    grid-area: summary;
+  }
+}
