@@ -14,5 +14,5 @@ When I am not coding, I like to spend time with my family, build Lego, and go to
 [react]: https://react.dev/
 [hl7]: https://www.hl7.org/
 [fhir]: https://www.hl7.org/fhir/overview.html
-[projects]: @/about.md
+[projects]: @/projects/_index.md
 [aoc]: https://adventofcode.com/
