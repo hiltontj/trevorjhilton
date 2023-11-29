@@ -28,11 +28,12 @@
 }
 
 #content {
-  margin: 8rem auto;
+  margin: 6rem auto;
 }
 
 .intro {
   border: 1px solid $grey;
+  border-radius: 8px;
   padding: 0.5rem 2rem;
   max-width: $container-width;
   font-size: 1.5rem;
