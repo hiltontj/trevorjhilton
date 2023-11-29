@@ -1,3 +1,4 @@
+{% import "icons.html" as icons %}
 {% extends "index.html" %}
 
 {% block description %}{{ page.description }}{% endblock description %}
@@ -5,7 +6,11 @@
 {% block content %}
 <div class="page">
   <div class="page-title">
-    <h2>{{ page.title | safe }}</h2>
+    <h2>
+      <a href='{{ get_url(path="@/blog/_index.md") }}'>Posts</a>
+      {{ icons::chevron_right() }}
+      {{ page.title | safe }}
+    </h2>
   </div>
 
   {% if page.date %}

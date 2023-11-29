@@ -23,16 +23,6 @@
     .blog-date {
       color: $grey-light;
     }
-
-    .blog-tag {
-      text-transform: capitalize;
-      font-size: 0.75rem;
-      border-radius: 4px;
-      border: 1px solid $orange-light;
-      color: $orange-light;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
   }
 }
 
@@ -42,5 +32,15 @@
 
   .page-date {
     color: $grey-light;
+  }
+
+  .page-title {
+    h2 {
+      display: flex;
+
+      svg {
+        align-self: center;
+      }
+    }
   }
 }

@@ -20,8 +20,48 @@
     display: flex;
     justify-content: end;
     padding-right: 1.5rem;
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 0.5rem;
+  }
+  
+  .project-summary {
+    grid-area: summary;
+  }
+}
+
+.project-page {
+  max-width: $container-width;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: 
+    "title meta"
+    "summary summary";
+
+  .project-title {
+    grid-area: title;
+    display: grid;
+    align-items: center;
+
+    h2 {
+      margin-top: 0;
+      display: flex;
+
+      svg {
+        align-self: center;
+      }
+    }
+  }
+  
+  .project-meta {
+    grid-area: meta;
+    display: flex;
+    justify-content: end;
+    padding-right: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
     gap: 0.5rem;
   }
   

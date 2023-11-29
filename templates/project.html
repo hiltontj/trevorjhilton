@@ -1,0 +1,42 @@
+{% import "icons.html" as icons %}
+{% extends "index.html" %}
+
+{% block description %}{{ page.description }}{% endblock description %}
+
+{% block content %}
+<div class="project-page">
+  <div class="project-title">
+    <h2>
+      <a href='{{ get_url(path="@/projects/_index.md") }}'>Projects</a>
+      {{ icons::chevron_right() }}
+      {{ page.title | safe }}
+    </h2>
+  </div>
+  <div class="project-meta">
+    {% if page.extra.website %}
+      <a href="{{ page.extra.website }}" target="_blank" >
+        {{ icons::website() }}
+      </a>
+    {% endif %}
+    {% if page.extra.github %}
+      <a href="{{ page.extra.github }}" target="_blank" >
+        {{ icons::github() }}
+      </a>
+    {% endif %}
+    {% if page.extra.docs %}
+      <a href="{{ page.extra.docs }}" target="_blank" >
+        {{ icons::docs() }}
+      </a>
+    {% endif %}
+    {% if page.extra.package %}
+      <a href="{{ page.extra.package }}" target="_blank" >
+        {{ icons::package() }}
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="project-summary">
+    {{ page.content | safe }}
+  </div>
+</div>
+{% endblock content %}
