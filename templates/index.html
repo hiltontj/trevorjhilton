@@ -1,3 +1,5 @@
+{% import "icons.html" as icons %}
+
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
@@ -9,7 +11,6 @@
     <title>{% block title %}{{ config.title }}{% endblock title %}</title>
     <link rel="stylesheet" href="{{ get_url(path="site.css", cachebust=true) }}" />
     <link rel="shortcut icon" type="image/png" href="{{ get_url(path="favicon.ico") }}"/>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <!-- <link href="{{ get_url(path="rss.xml") }}" rel="feed" type="application/rss+xml" title="{{ config.title }}" /> -->
   </head>
 
@@ -35,10 +36,10 @@
         </section>
         <div class="intro-icons">
           <a href="https://github.com/hiltontj" target="_blank" >
-            <box-icon type='logo' name='github' size='36px'></box-icon>
+            {{ icons::github(size=36) }}
           </a>
           <a href="https://www.linkedin.com/in/trevorhilton/" target="_blank" >
-            <box-icon type='logo' name='linkedin-square' size='36px'></box-icon>
+            {{ icons::linkedin(size=36) }}
           </a>
         </div>
       </div>

@@ -1,3 +1,4 @@
+{% import "icons.html" as icons %}
 {% extends "index.html" %}
 
 {% block description %}Trevor Hilton Projects{% endblock description %}
@@ -17,22 +18,22 @@
       <div class="project-meta">
         {% if project.extra.website %}
           <a href="{{ project.extra.website }}" target="_blank" >
-            <box-icon name='globe' ></box-icon>
+            {{ icons::website() }}
           </a>
         {% endif %}
         {% if project.extra.github %}
           <a href="{{ project.extra.github }}" target="_blank" >
-            <box-icon type='logo' name='github'></box-icon>
+            {{ icons::github() }}
           </a>
         {% endif %}
         {% if project.extra.docs %}
           <a href="{{ project.extra.docs }}" target="_blank" >
-            <box-icon name='book-open'></box-icon>
+            {{ icons::docs() }}
           </a>
         {% endif %}
         {% if project.extra.package %}
           <a href="{{ project.extra.package }}" target="_blank" >
-            <box-icon name='package'></box-icon>
+            {{ icons::package() }}
           </a>
         {% endif %}
       </div>

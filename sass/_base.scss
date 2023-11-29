@@ -40,6 +40,14 @@ a {
 
   &:hover {
     color: $orange-dark;
+
+    svg {
+      fill: $orange-extra-light;
+    }
+  }
+
+  svg {
+    fill: $dark-thm-main;
   }
 }
 
@@ -54,9 +62,14 @@ code {
   font-family: $code-font;
   padding: 5px;
   overflow: auto;
-  background-color: #f5f5f5;
+  background-color: $dark-thm-bg-code;
   border-radius: 5px;
   font-size: 85%;
+}
+
+:root {
+  color: $dark-thm-main;
+  background-color: $dark-thm-bg;
 }
 
 blockquote {
