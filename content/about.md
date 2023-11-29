@@ -8,7 +8,7 @@ I spend most of my time building back-end systems with [Rust][rust] and front-en
 
 I do have some open-source projects which are listed on my [Projects][projects] page, but otherwise, like to spend time jamming on [Advent of Code][aoc], or picking up books to learn new concepts and programming languages.
 
-When I am not coding, I like to spend time with my family, build Lego, and go to the gym.
+When I am not coding, I like to spend time with my family, build Lego, drink espresso, and go to the gym.
 
 [rust]: https://www.rust-lang.org/
 [react]: https://react.dev/
