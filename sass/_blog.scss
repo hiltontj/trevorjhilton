@@ -39,4 +39,8 @@
 .page {
   max-width: $container-width;
   margin: 0 auto;
+
+  .page-date {
+    color: $grey-light;
+  }
 }
