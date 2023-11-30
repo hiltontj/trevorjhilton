@@ -19,10 +19,15 @@
     grid-area: meta;
     display: flex;
     justify-content: end;
+    align-items: center;
     padding-right: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     gap: 0.5rem;
+
+    a {
+      display: flex;
+    }
   }
   
   .project-summary {
