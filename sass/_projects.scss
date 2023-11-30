@@ -37,10 +37,12 @@
   .project-title {
     h2 {
       margin-top: 0;
-      display: flex;
+      display: inline-block;
 
-      svg {
-        align-self: center;
+      .chevron {
+        display: inline-flex;
+        position: relative;
+        bottom: -0.25rem;
       }
     }
   }

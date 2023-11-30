@@ -17,7 +17,7 @@
 
   .blog-meta {
     div {
-      display: inline-block;
+      display: inline;
     }
 
     .blog-date {
@@ -36,10 +36,13 @@
 
   .page-title {
     h2 {
-      display: flex;
+      display: inline-block;
+      margin-top: 0;
 
-      svg {
-        align-self: center;
+      .chevron {
+        display: inline-flex;
+        position: relative;
+        bottom: -0.25rem;
       }
     }
   }

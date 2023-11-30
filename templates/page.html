@@ -8,8 +8,10 @@
   <div class="page-title">
     <h2>
       <a href='{{ get_url(path="@/blog/_index.md") }}'>Posts</a>
-      {{ icons::chevron_right() }}
-      {{ page.title | safe }}
+      <div class="chevron">
+        {{ icons::chevron_right() }}
+      </div>
+      <span>{{ page.title | safe }}</span>
     </h2>
   </div>
 

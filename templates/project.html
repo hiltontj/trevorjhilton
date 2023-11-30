@@ -8,8 +8,10 @@
   <div class="project-title">
     <h2>
       <a href='{{ get_url(path="@/projects/_index.md") }}'>Projects</a>
-      {{ icons::chevron_right() }}
-      {{ page.title | safe }}
+      <div class="chevron">
+        {{ icons::chevron_right() }}
+      </div>
+      <span>{{ page.title | safe }}</span>
     </h2>
   </div>
   <div class="project-meta">
