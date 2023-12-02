@@ -57,19 +57,22 @@ svg {
 }
 
 pre {
+  border-radius: 8px;
   padding: 1rem;
-  font-family: $code-font;
   overflow: auto;
   font-size: 85%;
+  code {
+    font-family: $code-font;
+  }
 }
 
-code {
+p code {
   font-family: $code-font;
   padding: 5px;
   overflow: auto;
-  background-color: $dark-thm-bg-code;
   border-radius: 5px;
   font-size: 85%;
+  background-color: $grey;
 }
 
 blockquote {
