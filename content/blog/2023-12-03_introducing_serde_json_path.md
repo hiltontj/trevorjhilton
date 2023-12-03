@@ -11,9 +11,9 @@ Earlier this year, I published the [`serde_json_path` crate][sjp-crates], a libr
 
 ## What is IETF JSONPath?
 
-JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by [Setfan Gössner in 2007][gossner]. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use it as a framework.
+JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by [Setfan Gössner in 2007][gossner]. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.
 
-More recently, the IETF formed a [working group to standardize JSONPath][ietf-wg]. Led by the same Stefan Gössner, as well as Glyn Normington and Carsten Bormann, the group has produced an extensive, clear, and precise standard for JSONPath. You can read the document in various formats [here][ietf-base]. It will likely be published as an RFC [by early 2024][glyn-blog].
+Recently, the IETF formed a [working group to standardize JSONPath][ietf-wg]. Led by the same Stefan Gössner, as well as Glyn Normington and Carsten Bormann, the group has produced an extensive, clear, and precise standard for JSONPath. You can read the document in various formats [here][ietf-base]. It will likely be published as an RFC [by early 2024][glyn-blog].
 
 ## The `serde_json_path` crate
 
