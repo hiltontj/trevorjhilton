@@ -11,7 +11,7 @@ Earlier this year, I published the [`serde_json_path` crate][sjp-crates], a libr
 
 ## What is IETF JSONPath?
 
-JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by [Setfan Gössner in 2007][gossner]. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.
+JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by [Stefan Gössner in 2007][gossner]. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.
 
 Recently, the IETF formed a [working group to standardize JSONPath][ietf-wg]. Led by the same Stefan Gössner, as well as Glyn Normington and Carsten Bormann, the group has produced an extensive, clear, and precise standard for JSONPath. You can read the document in various formats [here][ietf-base]. It will likely be published as an RFC [by early 2024][glyn-blog].
 
@@ -23,7 +23,24 @@ I published the [`serde_json_path` crate][sjp-crates] to provide Rust developers
 
 - fully compliant with the IETF JSONPath specification,
 - provides a concise and idiomatic API that is thoroughly documented, and
-- plays nice with `serde_json`.
+- integrates with `serde_json`.
+
+The resulting API provides two key abstractions: [`JsonPath`][sjp-jsonpath] and [`NodeList`][sjp-nodelist]. Here is a brief example:
+
+```rust
+use serde_json::json;
+use serde_json_path::JsonPath;
+
+let value = json!({
+    "foo": ["bar", "baz"]
+});
+
+let path = JsonPath::parse("$.foo.*").expect("valid JSONPath");
+let nodes = path.query(&value).all();
+assert_eq!(nodes, vec!["bar", "baz"]);
+```
+
+An instance of `JsonPath` represents a parsed and valid JSONPath expression. It can be instantiated with the `parse` method as above, but the type also implements `serde::Deserialize`, so it can be deserialized directly from, e.g., configuration files. `JsonPath` provides a single method `query` to perform the query and produce a `NodeList`.
 
 Have a look at [the crate documentation][sjp-docs] for a broad overview of JSONPath capability and how to use `serde_json_path`. I also encourage readers to check out the IETF standard to understand the nitty-gritty details of what they can do with their JSONPath queries.
 
@@ -43,6 +60,8 @@ You can try out IETF JSONPath in [the sandbox environment][sjp-live]. The sandbo
 [sjp-docs]: https://docs.rs/serde_json_path/latest/serde_json_path
 [sjp-live]: https://serdejsonpath.live
 [sjp-npm]: https://www.npmjs.com/package/serde-json-path
+[sjp-jsonpath]: https://docs.rs/serde_json_path/latest/serde_json_path/struct.JsonPath.html
+[sjp-nodelist]: https://docs.rs/serde_json_path/latest/serde_json_path/struct.NodeList.html
 [serde-json-crates]: https://crates.io/crates/serde_json
 [crates-jsonpath]: https://crates.io/keywords/jsonpath
 [cts]: https://github.com/jsonpath-standard/jsonpath-compliance-test-suite
