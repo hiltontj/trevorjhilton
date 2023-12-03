@@ -66,13 +66,15 @@ pre {
   }
 }
 
-p code {
-  font-family: $code-font;
-  padding: 5px;
-  overflow: auto;
-  border-radius: 5px;
-  font-size: 85%;
-  background-color: $grey;
+code {
+  h1 &, h2 &, h3 &, h4 &, h5 &, h6 &, p &, li & {
+    font-family: $code-font;
+    padding: 5px;
+    overflow: auto;
+    border-radius: 5px;
+    font-size: 85%;
+    background-color: $dark-thm-bg-code;
+  }
 }
 
 blockquote {
