@@ -19,9 +19,9 @@ Recently, the IETF formed a [working group to standardize JSONPath][ietf-wg]. Le
 
 I generally use the [`serde_json` crate][serde-json-crates] to work with JSON in Rust. Some time ago, I had a use for JSONPath. A keyword search for ["jsonpath" on crates.io][crates-jsonpath] reveals that there are several JSONPath implementations available to Rust programmers; however, I did not feel the API or documentation of these crates was up to the standard of quality set by the Rust ecosystem.
 
-I published the [`serde_json_path` crate][sjp-crates] to provide Rust developers with a JSONPath implementation that is:
+I published the [`serde_json_path` crate][sjp-crates] to provide Rust developers with a JSONPath implementation that:
 
-- fully compliant with the IETF JSONPath specification,
+- is fully compliant with the IETF JSONPath specification,
 - provides a concise and idiomatic API that is thoroughly documented, and
 - integrates with `serde_json`.
 

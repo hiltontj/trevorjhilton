@@ -22,5 +22,11 @@
   <div class="page-body">
     {{ page.content | safe }}
   </div>
+
+  <br />
+
+  <div class="page-issue">
+    <p>See a problem with this post? Please feel free to <a href="https://github.com/hiltontj/trevorjhilton/issues/new?template=blog-post-issue.md&title=[Blog Post] {{ page.title }}" target="_blank" rel="noopener noreferrer">submit an issue</a> on Github.</p>
+  </div>
 </div>
 {% endblock content %}
