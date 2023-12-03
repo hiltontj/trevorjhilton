@@ -59,7 +59,7 @@ You can try out IETF JSONPath in [the sandbox environment][sjp-live]. The sandbo
 [sjp-crates]: https://crates.io/crates/serde_json_path
 [sjp-docs]: https://docs.rs/serde_json_path/latest/serde_json_path
 [sjp-live]: https://serdejsonpath.live
-[sjp-npm]: https://www.npmjs.com/package/serde-json-path
+[sjp-npm]: https://www.npmjs.com/package/serde-json-path?activeTab=readme
 [sjp-jsonpath]: https://docs.rs/serde_json_path/latest/serde_json_path/struct.JsonPath.html
 [sjp-nodelist]: https://docs.rs/serde_json_path/latest/serde_json_path/struct.NodeList.html
 [serde-json-crates]: https://crates.io/crates/serde_json
