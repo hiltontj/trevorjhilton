@@ -9,6 +9,10 @@ Earlier this year, I published the [`serde_json_path` crate][sjp-crates], a libr
 
 <!-- more -->
 
+_Update (23 February 2024): The JSONPath standard has been published as [RFC 9535][rfc]_
+
+[rfc]: https://www.rfc-editor.org/rfc/rfc9535.html
+
 ## What is IETF JSONPath?
 
 JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by [Stefan Gössner in 2007][gossner]. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.
