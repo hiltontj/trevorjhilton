@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://trevorjhilton.com/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/about/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/blog/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/blog/introducing-serde-json-path/</loc>
+        <lastmod>2023-12-03</lastmod>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/blog/using-parquet-bloom-filters/</loc>
+        <lastmod>2024-05-28</lastmod>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/blog/welcome/</loc>
+        <lastmod>2023-11-24</lastmod>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/projects/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/projects/serde-json-path-live/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/projects/serde-json-path/</loc>
+    </url>
+    <url>
+        <loc>https://trevorjhilton.com/projects/solars/</loc>
+    </url>
+</urlset>

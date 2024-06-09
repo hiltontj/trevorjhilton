@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An introduction to the serde_json_path crate, for using IETF JSONPath in your Rust programs.">
+    <meta name="author" content="Trevor Hilton">
+    <title></title>
+    <link rel="stylesheet" href="https://trevorjhilton.com/site.css?h=ec705332d29a9afd60d8" />
+    <link rel="shortcut icon" type="image/png" href="https://trevorjhilton.com/favicon.ico"/>
+    <!-- <link href="https://trevorjhilton.com/rss.xml" rel="feed" type="application/rss+xml" title="" /> -->
+  </head>
+
+  <header id="header">
+    <h1 class="logo"><a href="https:&#x2F;&#x2F;trevorjhilton.com">Trevor Hilton</a></h1>
+    <ul>
+      <li><a href='https://trevorjhilton.com/about/'>About</a></li>
+      <li><a href='https://trevorjhilton.com/projects/'>Projects</a></li>
+      <li><a href='https://trevorjhilton.com/blog/'>Blog</a></li>
+    </ul>
+  </header>
+
+  <div id="content">
+    
+<div class="page">
+  <div class="page-title">
+    <h2>
+      <a href='https://trevorjhilton.com/blog/'>Posts</a>
+      <div class="chevron">
+        
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+
+      </div>
+      <span>IETF JSONPath for The Rust Programming Language</span>
+    </h2>
+  </div>
+
+  
+    <div class="page-date">Posted: 03 December 2023</div>
+  
+
+  <div class="page-body">
+    <p>Earlier this year, I published the <a rel="noopener" target="_blank" href="https://crates.io/crates/serde_json_path"><code>serde_json_path</code> crate</a>, a library that allows you to leverage IETF JSONPath in your Rust programs. This article provides an introduction to <code>serde_json_path</code> and some of its derivatives.</p>
+<span id="continue-reading"></span>
+<p><em>Update (23 February 2024): The JSONPath standard has been published as <a rel="noopener" target="_blank" href="https://www.rfc-editor.org/rfc/rfc9535.html">RFC 9535</a></em></p>
+<h2 id="what-is-ietf-jsonpath"><a class="zola-anchor" href="#what-is-ietf-jsonpath" aria-label="Anchor link for: what-is-ietf-jsonpath">What is IETF JSONPath?</a></h2>
+<p>JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by <a rel="noopener" target="_blank" href="https://goessner.net/articles/JsonPath/">Stefan Gössner in 2007</a>. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.</p>
+<p>Recently, the IETF formed a <a rel="noopener" target="_blank" href="https://datatracker.ietf.org/wg/jsonpath/about/">working group to standardize JSONPath</a>. Led by the same Stefan Gössner, as well as Glyn Normington and Carsten Bormann, the group has produced an extensive, clear, and precise standard for JSONPath. You can read the document in various formats <a rel="noopener" target="_blank" href="https://datatracker.ietf.org/doc/draft-ietf-jsonpath-base/">here</a>. It will likely be published as an RFC <a rel="noopener" target="_blank" href="https://underlap.org/jsonpath-rfc-nearing-publication">by early 2024</a>.</p>
+<h2 id="the-serde-json-path-crate"><a class="zola-anchor" href="#the-serde-json-path-crate" aria-label="Anchor link for: the-serde-json-path-crate">The <code>serde_json_path</code> crate</a></h2>
+<p>I generally use the <a rel="noopener" target="_blank" href="https://crates.io/crates/serde_json"><code>serde_json</code> crate</a> to work with JSON in Rust. Some time ago, I had a use for JSONPath. A keyword search for <a rel="noopener" target="_blank" href="https://crates.io/keywords/jsonpath">&quot;jsonpath&quot; on crates.io</a> reveals that there are several JSONPath implementations available to Rust programmers; however, I did not feel the API or documentation of these crates was up to the standard of quality set by the Rust ecosystem.</p>
+<p>I published the <a rel="noopener" target="_blank" href="https://crates.io/crates/serde_json_path"><code>serde_json_path</code> crate</a> to provide Rust developers with a JSONPath implementation that:</p>
+<ul>
+<li>is fully compliant with the IETF JSONPath specification,</li>
+<li>provides a concise and idiomatic API that is thoroughly documented, and</li>
+<li>integrates with <code>serde_json</code>.</li>
+</ul>
+<p>The resulting API provides two key abstractions: <a rel="noopener" target="_blank" href="https://docs.rs/serde_json_path/latest/serde_json_path/struct.JsonPath.html"><code>JsonPath</code></a> and <a rel="noopener" target="_blank" href="https://docs.rs/serde_json_path/latest/serde_json_path/struct.NodeList.html"><code>NodeList</code></a>. Here is a brief example:</p>
+<pre data-lang="rust" style="background-color:#31333d;color:#ffffffc4;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#db7c6d;">use </span><span>serde_json::json;
+</span><span style="color:#db7c6d;">use </span><span>serde_json_path::JsonPath;
+</span><span>
+</span><span style="color:#a3cbe3;">let</span><span> value </span><span style="color:#db7c6d;">= </span><span>json!({
+</span><span>    </span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>foo</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>: [</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>bar</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>, </span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>baz</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>]
+</span><span>});
+</span><span>
+</span><span style="color:#a3cbe3;">let</span><span> path </span><span style="color:#db7c6d;">= </span><span>JsonPath::parse(</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>$.foo.*</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>).</span><span style="color:#db7c6d;">expect</span><span>(</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>valid JSONPath</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>);
+</span><span style="color:#a3cbe3;">let</span><span> nodes </span><span style="color:#db7c6d;">=</span><span> path.</span><span style="color:#db7c6d;">query</span><span>(</span><span style="color:#db7c6d;">&amp;</span><span>value).</span><span style="color:#db7c6d;">all</span><span>();
+</span><span>assert_eq!(nodes, vec![</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>bar</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>, </span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>baz</span><span style="font-weight:bold;color:#dbbb3d;">&quot;</span><span>]);
+</span></code></pre>
+<p>An instance of <code>JsonPath</code> represents a parsed and valid JSONPath expression. It can be instantiated with the <code>parse</code> method as above, but the type also implements <code>serde::Deserialize</code>, so it can be deserialized directly from, e.g., configuration files. <code>JsonPath</code> provides a single method <code>query</code> to perform the query and produce a <code>NodeList</code>.</p>
+<p>Have a look at <a rel="noopener" target="_blank" href="https://docs.rs/serde_json_path/latest/serde_json_path">the crate documentation</a> for a broad overview of JSONPath capability and how to use <code>serde_json_path</code>. I also encourage readers to check out the IETF standard to understand the nitty-gritty details of what they can do with their JSONPath queries.</p>
+<h3 id="a-note-on-compliance"><a class="zola-anchor" href="#a-note-on-compliance" aria-label="Anchor link for: a-note-on-compliance">A note on compliance</a></h3>
+<p>Although not officially affiliated with the IETF working group, a <a rel="noopener" target="_blank" href="https://github.com/jsonpath-standard/jsonpath-compliance-test-suite">compliance test suite (CTS)</a> is being actively developed to establish compliance of JSONPath implementations with the IETF standard. <code>serde_json_path</code> is kept up-to-date with the CTS to ensure that it covers all the corners and edge cases of the specification.</p>
+<h2 id="wasm-and-jsonpath-sandbox"><a class="zola-anchor" href="#wasm-and-jsonpath-sandbox" aria-label="Anchor link for: wasm-and-jsonpath-sandbox">WASM and JSONPath Sandbox</a></h2>
+<p>You can try out IETF JSONPath in <a rel="noopener" target="_blank" href="https://serdejsonpath.live">the sandbox environment</a>. The sandbox parses and executes JSONPath queries entirely in the browser by utilizing the <a rel="noopener" target="_blank" href="https://www.npmjs.com/package/serde-json-path?activeTab=readme"><code>serde-json-path</code> NPM package</a>– which takes <code>serde_json_path</code> and compiles it to WASM.</p>
+
+  </div>
+
+  <br />
+
+  <div class="page-issue">
+    <p>See a problem with this post? Please feel free to <a href="https://github.com/hiltontj/trevorjhilton/issues/new?template=blog-post-issue.md&title=[Blog Post] IETF JSONPath for The Rust Programming Language" target="_blank" rel="noopener noreferrer">submit an issue</a> on Github.</p>
+  </div>
+</div>
+
+  </div>
+
+  <!-- <pre>{
+  "config": {
+    "base_url": "https://trevorjhilton.com",
+    "mode": "build",
+    "title": null,
+    "description": null,
+    "languages": {},
+    "default_language": "en",
+    "generate_feed": false,
+    "feed_filename": "atom.xml",
+    "taxonomies": [],
+    "author": null,
+    "build_search_index": false,
+    "extra": {
+      "author": "Trevor Hilton"
+    },
+    "markdown": {
+      "highlight_code": true,
+      "highlight_theme": "agola-dark",
+      "highlight_themes_css": [],
+      "render_emoji": false,
+      "external_links_target_blank": true,
+      "external_links_no_follow": false,
+      "external_links_no_referrer": false,
+      "smart_punctuation": false,
+      "extra_syntaxes_and_themes": []
+    }
+  },
+  "current_path": "/blog/introducing-serde-json-path/",
+  "current_url": "https://trevorjhilton.com/blog/introducing-serde-json-path/",
+  "lang": "en",
+  "page": {
+    "relative_path": "blog/2023-12-03_introducing_serde_json_path.md",
+    "colocated_path": null,
+    "content": "<p>Earlier this year, I published the <a rel=\"noopener\" target=\"_blank\" href=\"https://crates.io/crates/serde_json_path\"><code>serde_json_path</code> crate</a>, a library that allows you to leverage IETF JSONPath in your Rust programs. This article provides an introduction to <code>serde_json_path</code> and some of its derivatives.</p>\n<span id=\"continue-reading\"></span>\n<p><em>Update (23 February 2024): The JSONPath standard has been published as <a rel=\"noopener\" target=\"_blank\" href=\"https://www.rfc-editor.org/rfc/rfc9535.html\">RFC 9535</a></em></p>\n<h2 id=\"what-is-ietf-jsonpath\"><a class=\"zola-anchor\" href=\"#what-is-ietf-jsonpath\" aria-label=\"Anchor link for: what-is-ietf-jsonpath\">What is IETF JSONPath?</a></h2>\n<p>JSONPath, a tool for querying and extracting nodes from JSON objects, was originally described by <a rel=\"noopener\" target=\"_blank\" href=\"https://goessner.net/articles/JsonPath/\">Stefan Gössner in 2007</a>. Gössner's articles have been the basis for JSONPath's widespread adoption and implementation. Most existing implementations of JSONPath, including those available to the Rust Programming Language, use them as a framework.</p>\n<p>Recently, the IETF formed a <a rel=\"noopener\" target=\"_blank\" href=\"https://datatracker.ietf.org/wg/jsonpath/about/\">working group to standardize JSONPath</a>. Led by the same Stefan Gössner, as well as Glyn Normington and Carsten Bormann, the group has produced an extensive, clear, and precise standard for JSONPath. You can read the document in various formats <a rel=\"noopener\" target=\"_blank\" href=\"https://datatracker.ietf.org/doc/draft-ietf-jsonpath-base/\">here</a>. It will likely be published as an RFC <a rel=\"noopener\" target=\"_blank\" href=\"https://underlap.org/jsonpath-rfc-nearing-publication\">by early 2024</a>.</p>\n<h2 id=\"the-serde-json-path-crate\"><a class=\"zola-anchor\" href=\"#the-serde-json-path-crate\" aria-label=\"Anchor link for: the-serde-json-path-crate\">The <code>serde_json_path</code> crate</a></h2>\n<p>I generally use the <a rel=\"noopener\" target=\"_blank\" href=\"https://crates.io/crates/serde_json\"><code>serde_json</code> crate</a> to work with JSON in Rust. Some time ago, I had a use for JSONPath. A keyword search for <a rel=\"noopener\" target=\"_blank\" href=\"https://crates.io/keywords/jsonpath\">&quot;jsonpath&quot; on crates.io</a> reveals that there are several JSONPath implementations available to Rust programmers; however, I did not feel the API or documentation of these crates was up to the standard of quality set by the Rust ecosystem.</p>\n<p>I published the <a rel=\"noopener\" target=\"_blank\" href=\"https://crates.io/crates/serde_json_path\"><code>serde_json_path</code> crate</a> to provide Rust developers with a JSONPath implementation that:</p>\n<ul>\n<li>is fully compliant with the IETF JSONPath specification,</li>\n<li>provides a concise and idiomatic API that is thoroughly documented, and</li>\n<li>integrates with <code>serde_json</code>.</li>\n</ul>\n<p>The resulting API provides two key abstractions: <a rel=\"noopener\" target=\"_blank\" href=\"https://docs.rs/serde_json_path/latest/serde_json_path/struct.JsonPath.html\"><code>JsonPath</code></a> and <a rel=\"noopener\" target=\"_blank\" href=\"https://docs.rs/serde_json_path/latest/serde_json_path/struct.NodeList.html\"><code>NodeList</code></a>. Here is a brief example:</p>\n<pre data-lang=\"rust\" style=\"background-color:#31333d;color:#ffffffc4;\" class=\"language-rust \"><code class=\"language-rust\" data-lang=\"rust\"><span style=\"color:#db7c6d;\">use </span><span>serde_json::json;\n</span><span style=\"color:#db7c6d;\">use </span><span>serde_json_path::JsonPath;\n</span><span>\n</span><span style=\"color:#a3cbe3;\">let</span><span> value </span><span style=\"color:#db7c6d;\">= </span><span>json!({\n</span><span>    </span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>foo</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>: [</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>bar</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>, </span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>baz</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>]\n</span><span>});\n</span><span>\n</span><span style=\"color:#a3cbe3;\">let</span><span> path </span><span style=\"color:#db7c6d;\">= </span><span>JsonPath::parse(</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>$.foo.*</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>).</span><span style=\"color:#db7c6d;\">expect</span><span>(</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>valid JSONPath</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>);\n</span><span style=\"color:#a3cbe3;\">let</span><span> nodes </span><span style=\"color:#db7c6d;\">=</span><span> path.</span><span style=\"color:#db7c6d;\">query</span><span>(</span><span style=\"color:#db7c6d;\">&amp;</span><span>value).</span><span style=\"color:#db7c6d;\">all</span><span>();\n</span><span>assert_eq!(nodes, vec![</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>bar</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>, </span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>baz</span><span style=\"font-weight:bold;color:#dbbb3d;\">&quot;</span><span>]);\n</span></code></pre>\n<p>An instance of <code>JsonPath</code> represents a parsed and valid JSONPath expression. It can be instantiated with the <code>parse</code> method as above, but the type also implements <code>serde::Deserialize</code>, so it can be deserialized directly from, e.g., configuration files. <code>JsonPath</code> provides a single method <code>query</code> to perform the query and produce a <code>NodeList</code>.</p>\n<p>Have a look at <a rel=\"noopener\" target=\"_blank\" href=\"https://docs.rs/serde_json_path/latest/serde_json_path\">the crate documentation</a> for a broad overview of JSONPath capability and how to use <code>serde_json_path</code>. I also encourage readers to check out the IETF standard to understand the nitty-gritty details of what they can do with their JSONPath queries.</p>\n<h3 id=\"a-note-on-compliance\"><a class=\"zola-anchor\" href=\"#a-note-on-compliance\" aria-label=\"Anchor link for: a-note-on-compliance\">A note on compliance</a></h3>\n<p>Although not officially affiliated with the IETF working group, a <a rel=\"noopener\" target=\"_blank\" href=\"https://github.com/jsonpath-standard/jsonpath-compliance-test-suite\">compliance test suite (CTS)</a> is being actively developed to establish compliance of JSONPath implementations with the IETF standard. <code>serde_json_path</code> is kept up-to-date with the CTS to ensure that it covers all the corners and edge cases of the specification.</p>\n<h2 id=\"wasm-and-jsonpath-sandbox\"><a class=\"zola-anchor\" href=\"#wasm-and-jsonpath-sandbox\" aria-label=\"Anchor link for: wasm-and-jsonpath-sandbox\">WASM and JSONPath Sandbox</a></h2>\n<p>You can try out IETF JSONPath in <a rel=\"noopener\" target=\"_blank\" href=\"https://serdejsonpath.live\">the sandbox environment</a>. The sandbox parses and executes JSONPath queries entirely in the browser by utilizing the <a rel=\"noopener\" target=\"_blank\" href=\"https://www.npmjs.com/package/serde-json-path?activeTab=readme\"><code>serde-json-path</code> NPM package</a>– which takes <code>serde_json_path</code> and compiles it to WASM.</p>\n",
+    "permalink": "https://trevorjhilton.com/blog/introducing-serde-json-path/",
+    "slug": "introducing-serde-json-path",
+    "ancestors": [
+      "_index.md",
+      "blog/_index.md"
+    ],
+    "title": "IETF JSONPath for The Rust Programming Language",
+    "description": "An introduction to the serde_json_path crate, for using IETF JSONPath in your Rust programs.",
+    "updated": null,
+    "date": "2023-12-03",
+    "year": 2023,
+    "month": 12,
+    "day": 3,
+    "taxonomies": {},
+    "authors": [],
+    "extra": {},
+    "path": "/blog/introducing-serde-json-path/",
+    "components": [
+      "blog",
+      "introducing-serde-json-path"
+    ],
+    "summary": "<p>Earlier this year, I published the <a rel=\"noopener\" target=\"_blank\" href=\"https://crates.io/crates/serde_json_path\"><code>serde_json_path</code> crate</a>, a library that allows you to leverage IETF JSONPath in your Rust programs. This article provides an introduction to <code>serde_json_path</code> and some of its derivatives.</p>\n",
+    "toc": [
+      {
+        "level": 2,
+        "id": "what-is-ietf-jsonpath",
+        "permalink": "https://trevorjhilton.com/blog/introducing-serde-json-path/#what-is-ietf-jsonpath",
+        "title": "What is IETF JSONPath?",
+        "children": []
+      },
+      {
+        "level": 2,
+        "id": "the-serde-json-path-crate",
+        "permalink": "https://trevorjhilton.com/blog/introducing-serde-json-path/#the-serde-json-path-crate",
+        "title": "The serde_json_path crate",
+        "children": [
+          {
+            "level": 3,
+            "id": "a-note-on-compliance",
+            "permalink": "https://trevorjhilton.com/blog/introducing-serde-json-path/#a-note-on-compliance",
+            "title": "A note on compliance",
+            "children": []
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "id": "wasm-and-jsonpath-sandbox",
+        "permalink": "https://trevorjhilton.com/blog/introducing-serde-json-path/#wasm-and-jsonpath-sandbox",
+        "title": "WASM and JSONPath Sandbox",
+        "children": []
+      }
+    ],
+    "word_count": 625,
+    "reading_time": 4,
+    "assets": [],
+    "draft": false,
+    "lang": "en",
+    "lower": {
+      "relative_path": "blog/2024-05-28_using_parquet_bloom_filters.md",
+      "colocated_path": null,
+      "content": "<p>An exploration of when and how to use Bloom filters in Parquet, their impact on written Parquet files, and an assessment of their effectiveness when dealing with large quantities of high-cardinality data.</p>\n<span id=\"continue-reading\"></span>\n<p>Check out the blog post on the InfluxData Blog <a rel=\"noopener\" target=\"_blank\" href=\"https://www.influxdata.com/blog/using-parquets-bloom-filters/\">here</a>.</p>\n",
+      "permalink": "https://trevorjhilton.com/blog/using-parquet-bloom-filters/",
+      "slug": "using-parquet-bloom-filters",
+      "ancestors": [
+        "_index.md",
+        "blog/_index.md"
+      ],
+      "title": "Using Parquet's Bloom Filters",
+      "description": "Cross-posted exploration of when and how to use Bloom filters in Parquet, their impact on written Parquet files, and an assessment of their effectiveness when dealing with large quantities of high-cardinality data.",
+      "updated": null,
+      "date": "2024-05-28",
+      "year": 2024,
+      "month": 5,
+      "day": 28,
+      "taxonomies": {},
+      "authors": [],
+      "extra": {},
+      "path": "/blog/using-parquet-bloom-filters/",
+      "components": [
+        "blog",
+        "using-parquet-bloom-filters"
+      ],
+      "summary": "<p>An exploration of when and how to use Bloom filters in Parquet, their impact on written Parquet files, and an assessment of their effectiveness when dealing with large quantities of high-cardinality data.</p>\n",
+      "toc": [],
+      "word_count": 51,
+      "reading_time": 1,
+      "assets": [],
+      "draft": false,
+      "lang": "en",
+      "lower": null,
+      "higher": null,
+      "translations": [],
+      "backlinks": []
+    },
+    "higher": {
+      "relative_path": "blog/2023-11-24_welcome.md",
+      "colocated_path": null,
+      "content": "<p>The obligatory first blog post. I may post more here in future to showcase personal projects, thoughts, and/or milestones.</p>\n<p>Find out more <a href=\"/about\">about me</a>, or check out some of my <a href=\"/projects\">projects</a>.</p>\n",
+      "permalink": "https://trevorjhilton.com/blog/welcome/",
+      "slug": "welcome",
+      "ancestors": [
+        "_index.md",
+        "blog/_index.md"
+      ],
+      "title": "Welcome to my blog!",
+      "description": null,
+      "updated": null,
+      "date": "2023-11-24",
+      "year": 2023,
+      "month": 11,
+      "day": 24,
+      "taxonomies": {},
+      "authors": [],
+      "extra": {},
+      "path": "/blog/welcome/",
+      "components": [
+        "blog",
+        "welcome"
+      ],
+      "summary": null,
+      "toc": [],
+      "word_count": 34,
+      "reading_time": 1,
+      "assets": [],
+      "draft": false,
+      "lang": "en",
+      "lower": null,
+      "higher": null,
+      "translations": [],
+      "backlinks": []
+    },
+    "translations": [],
+    "backlinks": []
+  }
+}</pre> -->
+</html>
