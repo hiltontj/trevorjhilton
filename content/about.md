@@ -4,7 +4,7 @@ template = "about.html"
 +++
 ## About me
 
-Hi, I am Trevor, a full-stack software engineer based out of Toronto, Canada.
+Hi, I am Trevor, a full-stack software engineer based out of Toronto.
 
 I spend most of my time building back-end systems with [Rust][rust] and front-ends with [React][react]. Since I started professionally building software, I have worked mostly on integration platforms that enable systems to exchange data with each other; initially, in the healthcare space with [HL7][hl7] and [FHIR][fhir], and more recently in the financial space, dealing with REST APIs for various CRM, ERP, and lending platforms.
 
